@@ -3,6 +3,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
+import ErrorBoundary from "./ErrorBoundary";
 
 const Details = () => {
   const { id } = useParams();
@@ -32,4 +33,13 @@ const Details = () => {
     </div>
   );
 };
-export default Details;
+
+function DetailsErrorBoundary() {
+  return (
+    <ErrorBoundary>
+      <Details />
+    </ErrorBoundary>
+  );
+}
+
+export default DetailsErrorBoundary;
