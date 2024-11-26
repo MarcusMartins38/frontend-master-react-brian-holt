@@ -46,7 +46,7 @@ export default function SearchParams() {
             id="location"
             type="text"
             name="location"
-            className="mb-5 block w-60"
+            className="search-input"
             placeholder="Location"
           />
         </label>
@@ -56,7 +56,7 @@ export default function SearchParams() {
           <select
             id="animal"
             name="animal"
-            className="mb-5 block w-60"
+            className="search-input"
             value={animal}
             onChange={(e) => {
               setAnimal(e.target.value);
@@ -75,7 +75,7 @@ export default function SearchParams() {
           Breed
           <select
             id="breed"
-            className="mb-5 block w-60 disabled:opacity-50"
+            className="search-input grayed-out-disabled"
             disabled={breeds.length === 0}
             name="breed"
           >
