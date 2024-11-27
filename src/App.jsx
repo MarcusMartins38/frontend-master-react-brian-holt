@@ -4,8 +4,8 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import SearchParams from "./SearchParams";
 import Details from "./Details";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
-import AdoptedPetContext from "./AdoptedPetContext";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,12 +17,10 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const adoptedPetHook = useState(null);
-
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <AdoptedPetContext.Provider value={adoptedPetHook}>
+        <Provider store={store}>
           <header>
             <Link to="/">Adopt Me!</Link>
           </header>
@@ -30,7 +28,7 @@ const App = () => {
             <Route path="/details/:id" element={<Details />} />
             <Route path="/" element={<SearchParams />} />
           </Routes>
-        </AdoptedPetContext.Provider>
+        </Provider>
       </QueryClientProvider>
     </BrowserRouter>
   );
