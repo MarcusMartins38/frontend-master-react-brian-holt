@@ -18,3 +18,8 @@ export type PetAPIResponse = {
   hasNext: boolean;
   pets: Pet[];
 };
+
+export type BreedListAPIResponse = {
+  animal: Animal;
+  breeds: string[];
+};
