@@ -1,18 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import Modal from "./Modal";
 import AdoptedPetContext from "./AdoptedPetContext";
+import { PetAPIResponse } from "./APIResponsesTypes";
 
 const Details = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext); // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
   const { id } = useParams();
-  const results = useQuery(["details", id], fetchPet);
+  const results = useQuery<PetAPIResponse>(["details", id], fetchPet);
+
+  if (!id) {
+    throw new Error("Give an id");
+  }
 
   if (results.isLoading) {
     return (
@@ -22,7 +28,10 @@ const Details = () => {
     );
   }
 
-  const pet = results.data.pets[0];
+  const pet = results?.data?.pets[0];
+  if (!pet) {
+    throw new Error("No pet");
+  }
 
   return (
     <div className="details">
